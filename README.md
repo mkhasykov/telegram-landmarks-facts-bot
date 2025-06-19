@@ -19,8 +19,8 @@ Telegram-бот "Факты о месте по геолокации" — нах�
 
 1. **Клонируйте репозиторий:**
 ```bash
-git clone <repository-url>
-cd cursor_template_project
+git clone https://github.com/mkhasykov/telegram-landmarks-facts-bot.git
+cd telegram-landmarks-facts-bot
 ```
 
 2. **Создайте виртуальное окружение:**
@@ -94,7 +94,7 @@ python -m src.wikipedia_parser --categories all --limit 10 --output data/all_lan
 ## 📁 Структура проекта
 
 ```
-cursor_template_project/
+telegram-landmarks-facts-bot/
 ├── src/
 │   ├── __init__.py
 │   ├── main.py              # Основной модуль приложения
