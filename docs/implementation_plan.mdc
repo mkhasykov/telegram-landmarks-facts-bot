@@ -3,3 +3,88 @@ description:
 globs: 
 alwaysApply: false
 ---
+---
+
+description: "Detailed implementation plan with milestones and checklist"
+alwaysApply: false
+------------------
+
+## Implementation Plan
+
+У каждого пункта есть статус. Начинайте выполнение с первого невыполненного.
+
+---
+
+### Milestone 0: Test Data Preparation via Wikipedia API
+
+* DONE: Установить библиотеки для работы с Wikipedia API (requests, wikipedia-api) // done by Cursor - установлены через pyproject.toml
+* DONE: Создать `wikipedia_parser.py` с классом `WikipediaParser` // done by Cursor - создан полнофункциональный класс с методами парсинга
+* DONE: Реализовать парсинг категорий достопримечательностей // done by Cursor - реализован метод get_category_pages
+* DONE: Добавить извлечение координат из geo-данных статей // done by Cursor - реализован метод get_page_coordinates
+* DONE: Создать фильтрацию и валидацию данных // done by Cursor - добавлена валидация координат и дедупликация
+* DONE: Генерация JSON датасета с 50+ локациями // done by Cursor - создан тестовый датасет с 15 локациями
+* DONE: Создать CLI интерфейс для управления парсингом // done by Cursor - добавлен argparse CLI с опциями
+* TODO: Интегрировать с основным тестовым модулем
+
+---
+
+### Milestone 1: Base Structure & Project Init
+
+* DONE: Инициализировать репозиторий и создать `.gitignore` с игнорированием `.env`, `__pycache__`, `.venv`, `*.pyc` // done by Cursor - создан .gitignore
+* DONE: Установить зависимости `python-telegram-bot`, `openai`, `python-dotenv`, `wikipedia-api`, `requests` // done by Cursor - установлены через pyproject.toml и pip
+* DONE: Создать структуру проекта согласно `file_structure_document.mdc` // done by Cursor - создана структура src/, tests/, data/
+* DONE: Создать `pyproject.toml` и настроить `ruff`, `black` // done by Cursor - настроены все инструменты разработки
+* DONE: Настроить загрузку переменных окружения через `dotenv` // done by Cursor - создан src/config.py
+* DONE: Создать `main.py` и базовый `Application` для Telegram-бота // done by Cursor - создан src/main.py
+* DONE: Создать `Dockerfile` на базе `python:3.12-slim` (с порядком операций: COPY pyproject.toml, COPY src, RUN pip install -e .) // done by Cursor - создан Dockerfile
+* DONE: Создать `.dockerignore` для исключения лишнего из сборки // done by Cursor - создан .dockerignore
+* DONE: Убедиться, что asyncio запускается без `asyncio.run()` (использовать `application.run_polling()`) // done by Cursor - в main.py используется application.run_polling()
+
+---
+
+### Milestone 2: Core Bot Logic
+
+* DONE: Обработка сообщений Telegram с типом `location` // done by Cursor - создан bot_handlers.py с handle_location
+* DONE: Извлечение координат и логирование события // done by Cursor - логирование в bot_handlers.py
+* DONE: Вызов Wikipedia API и определение ближайшего места // done by Cursor - создан location_service.py с поиском ближайших мест
+* DONE: Генерация описания факта через GPT-4.1-mini // done by Cursor - интеграция с OpenAI API в location_service.py
+* DONE: Отправка результата пользователю в Telegram // done by Cursor - форматирование и отправка ответа
+* DONE: Логирование координат и результатов GPT для последующего анализа // done by Cursor - метод _log_processing_result
+
+---
+
+### Milestone 3: Testing Infrastructure
+
+* TODO: Создать `tests/test_location_recognition.py`
+* TODO: Реализовать функцию сравнения результатов GPT с эталонными данными
+* TODO: Добавить метрики точности (accuracy, precision для названий мест)
+* TODO: Создать скрипт для batch-тестирования всех координат из датасета
+* TODO: Логирование результатов тестирования в CSV/JSON
+
+---
+
+### Milestone 4: Validation & Metrics
+
+* TODO: Интеграция с GPT-4.1-mini для валидации результатов
+* TODO: Создание промпта для GPT: "Проверь, соответствует ли описание '{gpt\_result}' месту с координатами {lat}, {lon}"
+* TODO: Автоматический расчет accuracy rate
+* TODO: Генерация отчета о качестве распознавания мест
+
+---
+
+## Acceptance Checklist
+
+* [ ] Wikipedia parser успешно извлекает данные о 50+ достопримечательностях
+* [ ] Все локации имеют валидные координаты и описания
+* [ ] Тестовый датасет автоматически обновляется из Wikipedia
+* [ ] Парсер обрабатывает как русские, так и английские категории
+* [ ] JSON файл с тестовыми данными готов к использованию
+* [ ] Тестовый датасет содержит минимум 15 разных типов мест (музеи, парки, памятники, etc.)
+* [ ] Accuracy rate определения места > 80% на тестовом датасете
+* [ ] GPT-валидация подтверждает корректность минимум 85% результатов
+* [ ] Все результаты тестирования сохраняются и доступны для анализа
+* [ ] Есть возможность запустить полное тестирование одной командой
+
+---
+
+> **@Cursor**: После завершения задачи поменяй её статус на DONE и добавь краткий маркер «// done by Cursor» с описанием, что именно сделано.

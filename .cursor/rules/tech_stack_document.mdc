@@ -1,5 +1,15 @@
 ---
-description:
-globs:
+description: 
+globs: 
 alwaysApply: false
 ---
+## Tech Stack Document
+
+| Layer                | Tool / Library (Version)                  | Purpose                                              | Documentation Link                                                                      |
+| -------------------- | ----------------------------------------- | ---------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| **Runtime**          | Python 3.11                               | Основной язык и среда выполнения для Telegram-бота   | [Python Docs](https://docs.python.org/3.11/)                                            |
+| **Bot SDK**          | python-telegram-bot 20.x                  | Взаимодействие с Telegram Bot API                    | [python-telegram-bot](https://docs.python-telegram-bot.org/en/stable/)                  |
+| **OpenAI SDK**       | openai >=1.14.3                           | Запросы к GPT-4.1-mini через OpenAI API              | [OpenAI Python API](https://platform.openai.com/docs/)                                  |
+| **Database**         | Нет (MVP не требует постоянного хранения) | На этапе MVP база данных не используется             | —                                                                                       |
+| **Deployment**       | Railway + GitHub                          | Хостинг и CI/CD деплой на сервер                     | [Railway Docs](https://docs.railway.app/)                                               |
+| **Linter/Formatter** | Ruff + Black                              | Автоматическая проверка и форматирование Python-кода | [Ruff](https://docs.astral.sh/ruff/) / [Black](https://black.readthedocs.io/en/stable/) |

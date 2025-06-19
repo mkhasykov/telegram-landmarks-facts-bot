@@ -1,5 +1,38 @@
 ---
-description:
-globs:
+description: 
+globs: 
 alwaysApply: false
 ---
+---
+
+description: "Target file structure"
+alwaysApply: true
+-----------------
+
+## Папка → Назначение
+
+| Папка                | Назначение                                               |
+| -------------------- | -------------------------------------------------------- |
+| `src/`               | Исходный код приложения                                  |
+| `src/bot/`           | Логика Telegram-бота                                     |
+| `src/services/`      | Сервисы для интеграции с OpenAI и Wikipedia              |
+| `src/utils/`         | Вспомогательные утилиты (логирование, гео-утилиты и др.) |
+| `tests/`             | Юнит-тесты и интеграционные тесты                        |
+| `.github/workflows/` | CI/CD конфигурации для Railway и GitHub Actions          |
+
+## Главные файлы
+
+* `main.py`: Точка входа в приложение.
+* `src/bot/handlers.py`: Обработка входящих сообщений Telegram.
+* `src/services/gpt_client.py`: Вызов GPT-4.1-mini через OpenAI API.
+* `src/services/wikipedia_client.py`: Поиск достопримечательностей по координатам.
+* `src/utils/logger.py`: Конфигурация логирования.
+* `pyproject.toml`: Конфигурация зависимостей, линтеров и форматтеров.
+* `.env`: Секреты API (Telegram, OpenAI) — не коммитится.
+
+## Генерируй новые файлы здесь
+
+* `src/bot/`
+* `src/services/`
+* `src/utils/`
+* `tests/`
