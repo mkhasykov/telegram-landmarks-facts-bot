@@ -1,0 +1,120 @@
+Создай модуль wikipedia_parser.py для автоматического парсинга данных о достопримечательностях
+
+Задачи:
+1. Использовать Wikipedia API для получения списка страниц из категории "Достопримечательности":
+   - Российские: "Категория:Достопримечательности России"
+   - Мировые: "Category:Tourist attractions", "Category:Landmarks"
+   - Конкретные города: "Category:Tourist attractions in Moscow", "Category:Landmarks in Paris"
+
+2. Для каждой достопримечательности извлечь:
+   - Название (title)
+   - Координаты (latitude, longitude) из geo-данных статьи
+   - Краткое описание (extract/summary)
+   - Категории и теги
+   - URL статьи для справки
+
+3. Реализовать функции:
+```python
+import requests
+import json
+from typing import List, Dict, Optional
+
+class WikipediaParser:
+    def __init__(self):
+        self.base_url = "https://ru.wikipedia.org/w/api.php"
+        self.en_base_url = "https://en.wikipedia.org/w/api.php"
+    
+    def get_category_pages(self, category: str, limit: int = 50) -> List[str]:
+        """Получить список страниц из категории"""
+        pass
+    
+    def get_page_coordinates(self, page_title: str) -> Optional[Dict]:
+        """Извлечь координаты страницы"""
+        pass
+    
+    def get_page_extract(self, page_title: str) -> str:
+        """Получить краткое описание страницы"""
+        pass
+    
+    def parse_landmark_data(self, page_title: str) -> Dict:
+        """Полная информация о достопримечательности"""
+        pass
+    
+    def generate_test_dataset(self, categories: List[str], output_file: str):
+        """Создать тестовый датасет и сохранить в JSON"""
+        pass
+```
+
+4. Использовать следующие Wikipedia API endpoints:
+   - action=query&list=categorymembers - для получения страниц категории
+   - action=query&prop=coordinates - для извлечения координат
+   - action=query&prop=extracts - для получения описаний
+   - action=query&prop=pageimages - для получения изображений (опционально)
+
+5. Создать конфигурацию категорий для парсинга:
+```python
+CATEGORIES_CONFIG = {
+    "russian": [
+        "Достопримечательности Москвы",
+        "Достопримечательности Санкт-Петербурга", 
+        "Музеи России",
+        "Памятники России"
+    ],
+    "world": [
+        "World Heritage Sites",
+        "Tourist attractions in Paris",
+        "Landmarks in New York City",
+        "Tourist attractions in Rome"
+    ]
+}
+```
+
+6. Обработка ошибок и фильтрация:
+   - Пропускать страницы без координат
+   - Фильтровать по типу (только достопримечательности, не люди/события)
+   - Валидация координат (проверка диапазонов lat/lon)
+   - Дедупликация по названию и координатам
+
+7. Формат выходного JSON:
+```json
+{
+  "generated_at": "2024-01-XX",
+  "source": "Wikipedia API",
+  "total_locations": 50,
+  "locations": [
+    {
+      "id": 1,
+      "name": "Красная площадь",
+      "coordinates": {
+        "lat": 55.7539,
+        "lon": 37.6208
+      },
+      "description": "Главная площадь Москвы, расположенная в центре города между Кремлём и Китай-городом",
+      "categories": ["Достопримечательности Москвы", "Площади России"],
+      "wikipedia_url": "https://ru.wikipedia.org/wiki/Красная_площадь",
+      "country": "Россия",
+      "city": "Москва",
+      "type": "площадь"
+    }
+  ]
+}
+```
+
+8. Добавить CLI интерфейс:
+```bash
+python wikipedia_parser.py --categories russian --limit 30 --output test_data.json
+python wikipedia_parser.py --categories world --limit 20 --output world_landmarks.json
+```
+
+9. Интеграция с основным тестовым модулем:
+   - Функция load_wikipedia_data() для загрузки спарсенных данных
+   - Автоматическое обновление датасета (например, раз в неделю)
+   - Кэширование результатов для ускорения тестов
+
+Acceptance Criteria:
+□ Успешно парсит минимум 50 достопримечательностей с координатами
+□ Все координаты валидны (lat: -90..90, lon: -180..180)
+□ Описания извлекаются корректно (не пустые, информативные)
+□ JSON файл создается в правильном формате
+□ Обработаны ошибки API и сетевые проблемы
+□ Есть возможность парсинга как русских, так и международных достопримечательностей 
