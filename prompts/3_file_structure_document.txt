@@ -1,0 +1,13 @@
+Создай файл file_structure_document.mdc  
+(alwaysApply: true).
+
+Содержимое:
+1. Таблица «Папка → назначение».
+2. Раздел «Главные файлы» (имя + одна строка зачем).
+3. Раздел «Генерируй новые файлы здесь» со списком директорий, куда Cursor может добавлять код.
+
+Формат ответа — .mdc с front-matter:
+---
+description: "Target file structure"
+alwaysApply: true
+---
