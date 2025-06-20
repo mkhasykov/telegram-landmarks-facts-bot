@@ -19,7 +19,7 @@ class Config:
     
     # OpenAI Configuration
     OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "")
-    OPENAI_MODEL: str = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+    OPENAI_MODEL: str = os.getenv("OPENAI_MODEL", "gpt-4.1-mini")
     
     # Application Configuration
     DEBUG: bool = os.getenv("DEBUG", "false").lower() == "true"
@@ -67,7 +67,7 @@ except ValueError as e:
     print("- TELEGRAM_BOT_TOKEN=your_telegram_bot_token")
     print("- OPENAI_API_KEY=your_openai_api_key")
     print("\nOptional environment variables:")
-    print("- OPENAI_MODEL=gpt-4o-mini (default)")
+    print("- OPENAI_MODEL=gpt-4.1-mini (default)")
     print("- DEBUG=false")
     print("- LOG_LEVEL=INFO")
     print("- WEBHOOK_URL=your_webhook_url (for production)")
